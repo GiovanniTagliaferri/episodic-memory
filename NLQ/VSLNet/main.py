@@ -22,6 +22,9 @@ from utils.runner_utils import (
     set_th_config,
 )
 
+# import function to load GloVe embeddings
+from utils.data_util import load_glove_embeddings
+
 
 def main(configs, parser):
     print(f"Running with {configs}", flush=True)
@@ -145,6 +148,12 @@ def main(configs, parser):
                         .float()
                         .to(device)
                     )
+                # GloVe model
+                elif configs.predictor == "glove":
+                    glove_file_path = "data/glove/glove.6B.300d.txt"
+                    word_index = dataset.get("word_index", {})
+                    embedding_matrix = load_glove_embeddings(glove_file_path, word_index)
+                    model = VSLNet(configs=configs, word_vectors=embedding_matrix).to(device)
                 else:
                     word_ids, char_ids = word_ids.to(device), char_ids.to(device)
                     # generate mask
