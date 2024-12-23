@@ -150,7 +150,7 @@ def main(configs, parser):
                     )
                 # GloVe model
                 elif configs.predictor == "glove":
-                    glove_file_path = "data/glove/glove.6B.300d.txt"
+                    glove_file_path = configs.glove_path
                     word_index = dataset.get("word_index", {})
                     embedding_matrix = load_glove_embeddings(glove_file_path, word_index)
                     model = VSLNet(configs=configs, word_vectors=embedding_matrix).to(device)

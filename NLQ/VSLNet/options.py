@@ -203,5 +203,13 @@ def read_command_line():
         default=None,
         help="A list of splits to remove empty queries from. Valid values for the list are: ['train', 'val']",  # noqa
     )
+
+    # glove embeddings
+    parser.add_argument(
+        "--glove_path",
+        type=str,
+        default=None,
+        help="path to glove embeddings",
+    )
     configs = parser.parse_args()
     return configs, parser
